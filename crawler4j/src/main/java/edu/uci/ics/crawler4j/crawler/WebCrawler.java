@@ -162,6 +162,11 @@ public class WebCrawler implements Runnable {
         // Sub-classed can override this to add their custom functionality
     }
 
+    public void onThreadExit() {
+        // Do nothing by default
+        // Sub-classed can override this to add their custom functionality
+    }
+
     /**
      * This function is called once the header of a page is fetched. It can be
      * overridden by sub-classes to perform custom logic for different status
@@ -349,6 +354,8 @@ public class WebCrawler implements Runnable {
             }
         } catch (Throwable t) {
             setError(t);
+        } finally {
+            onThreadExit();
         }
     }
 
